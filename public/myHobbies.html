@@ -1,19 +1,363 @@
-<html>
-    <head>
-        <title>My Hobbies</title>
-    </head>
-<body style="background-color: #10110f;">
-    
-    <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: rgb(232, 232, 232)">
-        My Hobbies
-    </h1>
-    <hr>
-    <ol style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: rgb(232, 232, 232)">
-        <li>Video Games 🎮</li>
-        <li>Watching Movies 🎬</li>
-        <li>Making Videos ▶️</li>
-        <li>Live Streaming 💁‍♂️</li>
-    </ol>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Hobbies - Cem Sivas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    </body>
+        :root {
+            --primary-bg: #0a0e27;
+            --secondary-bg: #1a1f3a;
+            --accent-color: #6366f1;
+            --accent-hover: #818cf8;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--primary-bg);
+            background-image: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            margin-top: 2rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-grow: 1;
+        }
+
+        .hobby-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .hobby-card:nth-child(1) { animation-delay: 0.3s; }
+        .hobby-card:nth-child(2) { animation-delay: 0.4s; }
+        .hobby-card:nth-child(3) { animation-delay: 0.5s; }
+        .hobby-card:nth-child(4) { animation-delay: 0.6s; }
+
+        .hobby-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            border-color: var(--accent-color);
+        }
+
+        .hobby-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hobby-card:hover::before {
+            opacity: 1;
+        }
+
+        .hobby-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-card:hover .hobby-icon {
+            transform: scale(1.2) rotateZ(10deg);
+        }
+
+        .hobby-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hobby-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gaming { --hobby-color: #ff6b6b; }
+        .movies { --hobby-color: #4ecdc4; }
+        .videos { --hobby-color: #45b7d1; }
+        .streaming { --hobby-color: #f9ca24; }
+
+        .hobby-card.gaming:hover { border-color: var(--hobby-color); }
+        .hobby-card.movies:hover { border-color: var(--hobby-color); }
+        .hobby-card.videos:hover { border-color: var(--hobby-color); }
+        .hobby-card.streaming:hover { border-color: var(--hobby-color); }
+
+        .decorative-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            margin: 3rem 0;
+            border-radius: 2px;
+            animation: fadeInUp 0.8s ease 0.7s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body::before {
+                display: none;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.8rem 1.2rem;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .hobbies-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .hobby-card {
+                padding: 2rem;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+            
+            .hobby-icon {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 3rem 0 1rem;
+                margin-top: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hobby-card {
+                padding: 1.5rem;
+            }
+            
+            .hobby-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-button">
+        <span>←</span> Back to Portfolio
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <h1>My Hobbies</h1>
+            <p>Things I'm passionate about in my free time</p>
+        </div>
+
+        <div class="decorative-line"></div>
+
+        <div class="hobbies-grid">
+            <div class="hobby-card gaming">
+                <span class="hobby-icon">🎮</span>
+                <h2 class="hobby-title">Video Games</h2>
+                <p class="hobby-description">
+                    Gaming is my biggest passion! I love exploring virtual worlds, especially in Cyberpunk 2077. 
+                    I enjoy taking stunning screenshots and experiencing immersive storytelling through games.
+                </p>
+            </div>
+
+            <div class="hobby-card movies">
+                <span class="hobby-icon">🎬</span>
+                <h2 class="hobby-title">Watching Movies</h2>
+                <p class="hobby-description">
+                    I'm a movie enthusiast who loves diving into different genres and cinematography styles. 
+                    From sci-fi blockbusters to indie films, I appreciate the art of visual storytelling.
+                </p>
+            </div>
+
+            <div class="hobby-card videos">
+                <span class="hobby-icon">▶️</span>
+                <h2 class="hobby-title">Making Videos</h2>
+                <p class="hobby-description">
+                    Video creation is where my technical skills meet creativity. I enjoy editing, 
+                    storytelling through visuals, and bringing ideas to life through the power of video.
+                </p>
+            </div>
+
+            <div class="hobby-card streaming">
+                <span class="hobby-icon">📺</span>
+                <h2 class="hobby-title">Live Streaming</h2>
+                <p class="hobby-description">
+                    I love connecting with audiences through live streaming. It's exciting to share 
+                    gaming experiences in real-time and build a community around shared interests.
+                </p>
+            </div>
+        </div>
+
+        <div class="decorative-line"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover sound effect simulation
+            const hobbyCards = document.querySelectorAll('.hobby-card');
+            
+            hobbyCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Smooth entrance animation on load
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.hobby-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
 </html>
