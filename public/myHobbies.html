@@ -331,19 +331,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add hover sound effect simulation
-            const hobbyCards = document.querySelectorAll('.hobby-card');
-            
-            hobbyCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
             // Smooth entrance animation on load
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -353,7 +340,7 @@
                     }
                 });
             }, { threshold: 0.1 });
-
+    
             document.querySelectorAll('.hobby-card').forEach(card => {
                 observer.observe(card);
             });
